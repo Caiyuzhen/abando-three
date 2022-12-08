@@ -4,26 +4,33 @@ import Sizes from './utils/Size'
 
 
 
+// ⚡️⚡️ 封装其他所有组件的能力, 返回单独的一个实例 （封装 api 的逻辑）
 export default class Experience {
 	static instance: any //🔥🔥单实例的模式, 把各种 class 的实例都放在 Experience 这里, 其他组件通过 Experience.instance 来获取实例
-	canvas: HTMLCanvasElement //类里边的属性
-	sizes!: Sizes
+	canvas ? : HTMLCanvasElement //类里边的实例属性
+	scene: any //类里边的实例属性
+	sizes!: Sizes //类里边的实例属性
 
-	constructor(canvas:HTMLCanvasElement) {
-		// super(canvas) //继承的类需要 super 一下
-		this.canvas = canvas
+	
+
+	constructor(canvas? :HTMLCanvasElement) {
 		console.log('Hey, 成功新建类型');
 
 		if(Experience.instance) {
 			return Experience.instance
 		}
-		Experience.instance = this
-		const scene = new THREE.Scene()
-		this.sizes = new Sizes()
+		Experience.instance = this //如果没有实例, 就把当前实例赋值给 Experience.instance
+
+
+		// super(canvas) //继承的类需要 super 一下
+		this.canvas = canvas //把传进来的 canvas 赋值给类里边的 canvas 属性
+		this.scene = new THREE.Scene() //实例化一个场景, 赋值给 scene 属性
+		this.sizes = new Sizes() //实例化一个画布的尺寸, 赋值给 sizes 属性
+
 
 		// // from https://threejs.org/docs/#manual/zh/introduction/Creating-a-scene
 		
-		// const camera = new THREE.PerspectiveCamera( 85, window.innerWidth / window.innerHeight, 0.1, 1000 );
+		const camera = new THREE.PerspectiveCamera( 85, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 		// const renderer = new THREE.WebGLRenderer();
 		// renderer.setSize( window.innerWidth, window.innerHeight );
